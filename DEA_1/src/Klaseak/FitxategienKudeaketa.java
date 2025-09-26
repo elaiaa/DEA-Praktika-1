@@ -6,8 +6,13 @@ import java.util.Scanner;			//Scanner klasea
 
 public class FitxategienKudeaketa {
 public static void main(String[] args) {
+	//System.out.println(new File("Hola.txt").getAbsolutePath());
+	//File file = new File("Hola.txt");
+	
 	try {
-		Scanner sc = new Scanner(new FileReader("authors-name-all.txt"));
+		String dir = System.getProperty("user.dir");
+		String path = dir + File.separator + "Hola.txt";
+		Scanner sc = new Scanner(new FileReader(path));
 		
 		while (sc.hasNextLine()) {
 			int i = sc.nextInt();
@@ -21,5 +26,4 @@ public static void main(String[] args) {
 	}
 }
 }
-
   
