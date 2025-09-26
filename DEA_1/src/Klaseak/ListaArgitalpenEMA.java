@@ -14,5 +14,15 @@ public class ListaArgitalpenEMA {
 		return nireArgitalpenEMA;
 	}
 	
-	//metodoak	
+	//metodoak
+		public Argitalpen argitalpenaBilatu(String pKodea) {
+			boolean aurki=getListaArgitalpenEMA().ListaArgitalpen.containsKey(pKodea);
+			if(aurki) {
+				return getListaArgitalpenEMA().ListaArgitalpen.get(pKodea);
+			}
+			else {
+				System.out.println("Ez da argitalpenik aurkitu");
+			}
+			
+		}
 }
