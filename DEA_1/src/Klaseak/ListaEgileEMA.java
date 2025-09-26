@@ -17,10 +17,23 @@ public class ListaEgileEMA {
 	//Egile bat emanda (identifikatzailea), bueltatu bere argitalpenak
 	public void getEgilearenArgitalpenak(Egile pEgile) {
 		String bilatzekoKodea=pEgile.getkodea();
-		if (ListaEgile.containsKey(bilatzekoKodea)){
+		if (this.aurkitutaEgile(pEgile)){
 			Egile egilea=ListaEgile.get(bilatzekoKodea);
 			egilea.getEgilearenArgitalpenak();
 		}
+	}
+	
+	public void removeEgile(Egile pEgile) {
+		if (this.aurkitutaEgile(pEgile)){ListaEgile.remove(pEgile.getkodea());}
+		ListaEgile.remove(pEgile.getkodea());
+	}
+	public boolean aurkitutaEgile(Egile pEgile) {
+		String bilatzekoKodea=pEgile.getkodea();
+		if (ListaEgile.containsKey(bilatzekoKodea)) {
+			return true;
+		}
+		else
+		{return false;}
 	}
 
 }
