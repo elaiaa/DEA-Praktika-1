@@ -15,14 +15,22 @@ public class ListaArgitalpenEMA {
 	}
 	
 	//metodoak
+		public boolean aurkituArgitalpen(String pKodea) {
+			return ListaArgitalpen.containsKey(pKodea);
+		}
 		public Argitalpen argitalpenaBilatu(String pKodea) {
-			boolean aurki=getListaArgitalpenEMA().ListaArgitalpen.containsKey(pKodea);
+			boolean aurki=aurkituArgitalpen(pKodea);
 			if(aurki) {
-				return getListaArgitalpenEMA().ListaArgitalpen.get(pKodea);
+				return ListaArgitalpen.get(pKodea);
 			}
 			else {
 				System.out.println("Ez da argitalpenik aurkitu");
+				return null;
 			}
-			
 		}
-}
+		public void ezabatuArgitalpen(String pKodea) {
+			boolean aurki=aurkituArgitalpen(pKodea);
+			if(aurki) {ListaArgitalpen.remove(pKodea);}
+		}
+		
+	}
