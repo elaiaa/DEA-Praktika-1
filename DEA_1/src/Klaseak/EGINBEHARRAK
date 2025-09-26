@@ -1,0 +1,15 @@
+• Datuak kargatu fitxategietatik
+• Argitalpen baten bilaketa, bere identifikatzailea emanda
+• Argitalpen berri baten txertaketa (bere identifikatzailea eta izenburua emanda)
+• Aipamen bat gehitu argitalpen bati (argitalpenen bi identifikatzaile emanda)
+• Egile bat gehitu argitalpen bati (bi identifikatzaile emanda)
+• Argitalpen bat emanda (identifikatzailea), bueltatu aipatzen dituen argitalpenak
+• Argitalpen bat emanda (identifikatzailea), bueltatu egileak
+• Egile bat emanda (identifikatzailea), bueltatu bere argitalpenak
+• Ezabatu argitalpen bat
+• Ezabatu egile bat
+• Argitalpenen eta egileen zerrendak (eguneratua) fitxategietan gorde
+• Argitalpenen zerrenda alfabetikoki ordenatua lortu (ez da argitalpenen zerrenda aldatu behar,
+• ArrayList edo LinkedList motako zerrenda bat bueltatuko da). Ordenaziorako algoritmo bat
+inplementatu behar da, hau da, ezin da deitu dagoeneko inplementatuta dagoen ordenaziorako
+funtzio bat.
