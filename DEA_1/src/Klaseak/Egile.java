@@ -1,4 +1,4 @@
-
+package Klaseak;
 
 
 import java.util.HashMap;
@@ -21,7 +21,7 @@ public class Egile {
 	//Egile bat emanda (identifikatzailea), bueltatu bere argitalpenak
 	public void getEgilearenArgitalpenak(){
 		for (Argitalpen i : argitalpenak.values()) {
-			  System.out.println(i.getTitulua());
+			  System.out.println(i.getTitulu());
 			}
 	}
 

@@ -15,6 +15,38 @@ public class Argitalpen {
 		this.listaargitalpen=new HashMap<String,Argitalpen>();
 		this.listaegile=new HashMap<String,Egile>();
 	}
+
+	public String getKodea() {
+		return kodea;
+	}
+
+	public void setKodea(String kodea) {
+		this.kodea = kodea;
+	}
+
+	public String getTitulu() {
+		return titulu;
+	}
+
+	public void setTitulu(String titulu) {
+		this.titulu = titulu;
+	}
+
+	public HashMap<String, Egile> getListaegile() {
+		return listaegile;
+	}
+
+	public void setListaegile(HashMap<String, Egile> listaegile) {
+		this.listaegile = listaegile;
+	}
+
+	public HashMap<String, Argitalpen> getListaargitalpen() {
+		return listaargitalpen;
+	}
+
+	public void setListaargitalpen(HashMap<String, Argitalpen> listaargitalpen) {
+		this.listaargitalpen = listaargitalpen;
+	}
 	
 }
 	
