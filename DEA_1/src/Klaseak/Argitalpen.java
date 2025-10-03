@@ -47,8 +47,16 @@ public class Argitalpen {
 	public void setListaargitalpen(HashMap<String, Argitalpen> listaargitalpen) {
 		this.listaargitalpen = listaargitalpen;
 	}
+	///////////////////////////////////////////////////////
+	
+	public void gehituEgile(Egile e) {
+		this.listaegile.put(e.getkodea(), e);
+	}
+	
+	/////////////////////////////////////////////////////////
 	
 }
 	
+
 
 
