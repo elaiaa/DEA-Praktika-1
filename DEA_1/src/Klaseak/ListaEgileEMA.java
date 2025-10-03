@@ -1,4 +1,3 @@
-package Klaseak;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -35,6 +34,20 @@ public class ListaEgileEMA {
 		}
 		else
 		{return false;}
+	}
+	
+	public boolean badagoEgilea(String bilatzekoKodea) {
+		if(ListaEgile.containsKey(bilatzekoKodea)) {
+			return true;
+		}
+		else {return false;}
+	}
+	public Egile getEgile(String kodea) {
+		if(this.badagoEgilea(kodea)) {
+			return ListaEgile.get(kodea);
+		}
+		else {return null;}
+		
 	}
 
 }
