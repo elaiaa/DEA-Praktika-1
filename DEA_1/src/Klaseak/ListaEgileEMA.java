@@ -23,19 +23,13 @@ public class ListaEgileEMA {
 		}
 	}
 	
-	public void removeEgile(Egile pEgile) {
-		if (this.aurkitutaEgile(pEgile)){ListaEgile.remove(pEgile.getkodea());}
-		ListaEgile.remove(pEgile.getkodea());
-	}
-	public boolean aurkitutaEgile(Egile pEgile) {
-		String bilatzekoKodea=pEgile.getkodea();
-		if (ListaEgile.containsKey(bilatzekoKodea)) {
-			return true;
+	public void removeEgile(String pEgile) {
+		if(nireListaEgileEMA.badagoEgilea(pEgile)) {
+			ListaEgile.remove(pEgile);
 		}
-		else
-		{return false;}
+
+
 	}
-	
 	public boolean badagoEgilea(String bilatzekoKodea) {
 		if(ListaEgile.containsKey(bilatzekoKodea)) {
 			return true;
