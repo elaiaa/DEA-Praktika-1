@@ -37,11 +37,11 @@ public class ListaArgitalpenEMA {
 			Argitalpen a= this.argitalpenaBilatu(kodea);
 			return a.getListaegile();
 		}
-		
 		public void gehituEgileArgitalpenari(String kodeArgitalpen, String kodeEgile) {
 			Egile e= ListaEgileEMA.getListaEgileEMA().getEgile(kodeEgile);
-			Argitalpen a= ListaArgitalpen.get(kodeArgitalpen);
-			a.gehituEgile(e);
+			if(this.ListaArgitalpen.containsKey(kodeArgitalpen))
+				{Argitalpen a= ListaArgitalpen.get(kodeArgitalpen);
+				a.gehituEgile(e);}
 		}
 		/////////////////ELAIA-END//////////////////////////////////////////////////
 		}
