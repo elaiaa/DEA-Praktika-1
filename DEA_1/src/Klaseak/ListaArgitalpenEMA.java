@@ -37,7 +37,7 @@ public class ListaArgitalpenEMA {
 			Argitalpen a= this.argitalpenaBilatu(kodea);
 			return a.getListaegile();
 		}
-		
+		//////////////////////////////////////////////////////////
 		}
 		public void ezabatuArgitalpen(String pKodea) {
 			boolean aurki=aurkituArgitalpen(pKodea);
