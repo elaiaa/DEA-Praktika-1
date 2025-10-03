@@ -27,7 +27,7 @@ public class ListaArgitalpenEMA {
 				System.out.println("Ez da argitalpenik aurkitu");
 				return null;
 			}
-		////////////////////////////////////////////////////////
+		//////////////////ELAIA///////////////////////////////
 		
 		public HashMap<String, Argitalpen> argitalpenAipamenak(String kodea) {
 			Argitalpen a= this.argitalpenaBilatu(kodea);
@@ -43,7 +43,7 @@ public class ListaArgitalpenEMA {
 			Argitalpen a= ListaArgitalpen.get(kodeArgitalpen);
 			a.gehituEgile(e);
 		}
-		/////////////////////////////////////////////////////////////////////////////
+		/////////////////ELAIA-END//////////////////////////////////////////////////
 		}
 		public void ezabatuArgitalpen(String pKodea) {
 			boolean aurki=aurkituArgitalpen(pKodea);
@@ -54,6 +54,11 @@ public class ListaArgitalpenEMA {
 		public void gehituArgitalpen(String pKod, String pTit) {
 			Argitalpen a= new Argitalpen(pKod, pTit);
 			ListaArgitalpen.put(pKod, a);
+		}
+		
+		public void aipamenaGehitu(String pKodNon, String pKonZein) {
+			Argitalpen a= argitalpenaBilatu(pKodNon);
+			a.aipamenaGehitu(pKonZein);
 		}
 		/////////////////////GAIZKA-END////////////////////
 		
