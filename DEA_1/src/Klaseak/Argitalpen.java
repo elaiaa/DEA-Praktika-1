@@ -50,8 +50,10 @@ public class Argitalpen {
 	/////////////ELAIA///////////////////////////////////
 	
 	public void gehituEgile(Egile e) {
-		this.listaegile.put(e.getkodea(), e);
+		if(!listaegile.containsKey(e)) {
+		this.listaegile.put(e.getkodea(), e);}
 	}
+	
 	
 	/////////////ELAIA-END//////////////////////////////////////
 	///////////////GAIZKA///////////////////
@@ -62,6 +64,7 @@ public class Argitalpen {
 	///////////////GAIZKA-END///////////////
 }
 	
+
 
 
 
