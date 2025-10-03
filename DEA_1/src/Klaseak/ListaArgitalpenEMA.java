@@ -53,13 +53,16 @@ public class ListaArgitalpenEMA {
 		///////////////////////GAIZKA//////////////////////
 		public void gehituArgitalpen(String pKod, String pTit) {
 			Argitalpen a= new Argitalpen(pKod, pTit);
-			ListaArgitalpen.put(pKod, a);
+			if(ListaArgitalpen.containsKey(pKod)) {}
+			else {
+				ListaArgitalpen.put(pKod, a);
+			}
 		}
 		
 		public void aipamenaGehitu(String pKodNon, String pKonZein) {
 			Argitalpen a= argitalpenaBilatu(pKodNon);
 			a.aipamenaGehitu(pKonZein);
 		}
-		/////////////////////GAIZKA-END////////////////////
+	/////////////////////GAIZKA-END////////////////////
 		
 	}
