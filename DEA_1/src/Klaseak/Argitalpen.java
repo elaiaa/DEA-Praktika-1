@@ -47,16 +47,22 @@ public class Argitalpen {
 	public void setListaargitalpen(HashMap<String, Argitalpen> listaargitalpen) {
 		this.listaargitalpen = listaargitalpen;
 	}
-	///////////////////////////////////////////////////////
+	/////////////ELAIA///////////////////////////////////
 	
 	public void gehituEgile(Egile e) {
 		this.listaegile.put(e.getkodea(), e);
 	}
 	
-	/////////////////////////////////////////////////////////
-	
+	/////////////ELAIA-END//////////////////////////////////////
+	///////////////GAIZKA///////////////////
+	public void aipamenaGehitu(String pKodeZein) {
+		Argitalpen a= ListaArgitalpenEMA.getListaArgitalpenEMA().argitalpenaBilatu(pKodeZein);
+		this.listaargitalpen.put(pKodeZein, a);
+	}
+	///////////////GAIZKA-END///////////////
 }
 	
+
 
 
 
