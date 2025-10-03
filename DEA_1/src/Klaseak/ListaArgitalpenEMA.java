@@ -43,5 +43,12 @@ public class ListaArgitalpenEMA {
 			boolean aurki=aurkituArgitalpen(pKodea);
 			if(aurki) {ListaArgitalpen.remove(pKodea);}
 		}
+
+		///////////////////////GAIZKA//////////////////////
+		public void gehituArgitalpen(String pKod, String pTit) {
+			Argitalpen a= new Argitalpen(pKod, pTit);
+			ListaArgitalpen.put(pKod, a);
+		}
+		/////////////////////GAIZKA-END////////////////////
 		
 	}
