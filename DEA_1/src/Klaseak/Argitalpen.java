@@ -59,11 +59,15 @@ public class Argitalpen {
 	///////////////GAIZKA///////////////////
 	public void aipamenaGehitu(String pKodeZein) {
 		Argitalpen a= ListaArgitalpenEMA.getListaArgitalpenEMA().argitalpenaBilatu(pKodeZein);
-		this.listaargitalpen.put(pKodeZein, a);
+		if(listaargitalpen.containsKey(pKodeZein)) {}
+		else {
+			this.listaargitalpen.put(pKodeZein, a);
+		}
 	}
 	///////////////GAIZKA-END///////////////
 }
 	
+
 
 
 
