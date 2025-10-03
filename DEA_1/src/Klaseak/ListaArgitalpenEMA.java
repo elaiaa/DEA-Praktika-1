@@ -27,6 +27,17 @@ public class ListaArgitalpenEMA {
 				System.out.println("Ez da argitalpenik aurkitu");
 				return null;
 			}
+			////////////////////////////////////////////////////////
+		
+		public HashMap<String, Argitalpen> argitalpenAipamenak(String kodea) {
+			Argitalpen a= this.argitalpenaBilatu(kodea);
+			return a.getListaargitalpen();
+		}
+		public HashMap<String, Egile> egileak(String kodea) {
+			Argitalpen a= this.argitalpenaBilatu(kodea);
+			return a.getListaegile();
+		}
+		
 		}
 		public void ezabatuArgitalpen(String pKodea) {
 			boolean aurki=aurkituArgitalpen(pKodea);
