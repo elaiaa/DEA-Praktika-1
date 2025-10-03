@@ -27,7 +27,7 @@ public class ListaArgitalpenEMA {
 				System.out.println("Ez da argitalpenik aurkitu");
 				return null;
 			}
-			////////////////////////////////////////////////////////
+		////////////////////////////////////////////////////////
 		
 		public HashMap<String, Argitalpen> argitalpenAipamenak(String kodea) {
 			Argitalpen a= this.argitalpenaBilatu(kodea);
@@ -37,7 +37,13 @@ public class ListaArgitalpenEMA {
 			Argitalpen a= this.argitalpenaBilatu(kodea);
 			return a.getListaegile();
 		}
-		//////////////////////////////////////////////////////////
+		
+		public void gehituEgileArgitalpenari(String kodeArgitalpen, String kodeEgile) {
+			Egile e= ListaEgileEMA.getListaEgileEMA().getEgile(kodeEgile);
+			Argitalpen a= ListaArgitalpen.get(kodeArgitalpen);
+			a.gehituEgile(e);
+		}
+		/////////////////////////////////////////////////////////////////////////////
 		}
 		public void ezabatuArgitalpen(String pKodea) {
 			boolean aurki=aurkituArgitalpen(pKodea);
