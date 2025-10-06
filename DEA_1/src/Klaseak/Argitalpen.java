@@ -16,6 +16,12 @@ public class Argitalpen {
 		this.listaegile=new HashMap<String,Egile>();
 	}
 
+	/*************************USUNE FITXATEGIEN KUDEAKETA***************************/
+	public void gehituEgile(String pKodea, Egile pEgile) {
+		this.listaegile.put(pKodea, pEgile);
+	}
+	/*************************USUNE FITXATEGIEN KUDEAKETA***************************/	
+
 	public String getKodea() {
 		return kodea;
 	}
@@ -67,6 +73,7 @@ public class Argitalpen {
 	///////////////GAIZKA-END///////////////
 }
 	
+
 
 
 
