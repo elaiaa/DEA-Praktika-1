@@ -13,6 +13,51 @@ public class ListaArgitalpenEMA {
 		}
 		return nireArgitalpenEMA;
 	}
+
+	/*************************USUNE FITXATEGIEN KUDEAKETA***************************/	
+	public void getListaArgitalpen() {
+		HashMap<String, Argitalpen> listaArgitalpen = new HashMap<>();
+		File nireFitxategia = new File("publications-titles-all.txt");
+		
+		try (Scanner nireScanner = new Scanner(nireFitxategia)) {
+			while (nireScanner.hasNextLine()) {
+				String lineaOsoa = nireScanner.nextLine();
+				String[] zatitu = lineaOsoa.split(" # ");
+				Argitalpen arg = new Argitalpen(zatitu[0], zatitu[1]);
+				listaArgitalpen.put(zatitu[0], arg);
+			}
+			nireScanner.close();
+		} catch (FileNotFoundException e) {
+			System.out.println("Errorea gertatu da, ezin da fitxategia irakurri");
+			e.printStackTrace();
+		}
+		this.ListaArgitalpen = listaArgitalpen;
+		System.out.println(this.ListaArgitalpen);
+	}
+	
+	public void getArgitalpenenEgileak() {
+		File nireFitxategia = new File("publications-authors-all-final.txt");
+		ListaEgileEMA egileEMA = ListaEgileEMA.getListaEgileEMA();
+		
+		try (Scanner nireScanner = new Scanner(nireFitxategia)) {
+			while (nireScanner.hasNextLine()) {
+				String lineaOsoa = nireScanner.nextLine();
+				String[] zatitu = lineaOsoa.split(" # ");
+				for (String i : this.ListaArgitalpen.keySet()) {
+					if (i.equals(zatitu[0])) {		//Argitalpen kodeak berdinak dira
+						Egile eg = egileEMA.getEgile(zatitu[1]);	//Egilea aurkitu kodearekin
+						this.ListaArgitalpen.get(i).gehituEgile(zatitu[1], eg);	//Argitalpenaren listaEgile HashMap-ean egilea gehitu
+					}
+				}
+			}
+			nireScanner.close();
+		} catch (FileNotFoundException e) {
+			System.out.println("Errorea gertatu da, ezin da fitxategia irakurri");
+			e.printStackTrace();
+		}
+	}
+	/*************************USUNE FITXATEGIEN KUDEAKETA***************************/	
+
 	
 	//metodoak
 		public boolean aurkituArgitalpen(String pKodea) {
