@@ -20,6 +20,10 @@ public class Argitalpen {
 	public void gehituEgile(String pKodea, Egile pEgile) {
 		this.listaegile.put(pKodea, pEgile);
 	}
+	
+	public void gehituArgitalpen(String pKodea, Argitalpen pArgitalpen) {
+		this.listaargitalpen.put(pKodea, pArgitalpen);
+	}
 	/*************************USUNE FITXATEGIEN KUDEAKETA***************************/	
 
 	public String getKodea() {
@@ -73,6 +77,7 @@ public class Argitalpen {
 	///////////////GAIZKA-END///////////////
 }
 	
+
 
 
 
