@@ -11,6 +11,12 @@ public class ListaEgileEMA {
 		}
 		return nireListaEgileEMA;
 	}
+	//****************************************FITXATEGIEN KUDEAKETA USUNE************************************
+	public void gehituArgitalpen(String pKodea, Argitalpen pArgitalpen) {
+		this.argitalpenak.put(pKodea, pArgitalpen);
+	}
+	//****************************************FITXATEGIEN KUDEAKETA USUNE************************************
+	
 	
 	
 	
@@ -51,3 +57,4 @@ public class ListaEgileEMA {
 	}
 
 }
+
