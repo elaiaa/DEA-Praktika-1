@@ -16,7 +16,6 @@ public class ListaArgitalpenEMA {
 
 	/*************************USUNE FITXATEGIEN KUDEAKETA***************************/	
 	public void getListaArgitalpen() {
-		HashMap<String, Argitalpen> listaArgitalpen = new HashMap<>();
 		File nireFitxategia = new File("publications-titles-all.txt");
 		
 		try (Scanner nireScanner = new Scanner(nireFitxategia)) {
@@ -24,14 +23,13 @@ public class ListaArgitalpenEMA {
 				String lineaOsoa = nireScanner.nextLine();
 				String[] zatitu = lineaOsoa.split(" # ");
 				Argitalpen arg = new Argitalpen(zatitu[0], zatitu[1]);
-				listaArgitalpen.put(zatitu[0], arg);
+				this.ListaArgitalpen.put(zatitu[0], arg);
 			}
 			nireScanner.close();
 		} catch (FileNotFoundException e) {
 			System.out.println("Errorea gertatu da, ezin da fitxategia irakurri");
 			e.printStackTrace();
 		}
-		this.ListaArgitalpen = listaArgitalpen;
 	}
 	
 	public void getArgitalpenenEgileak() {
@@ -52,6 +50,30 @@ public class ListaArgitalpenEMA {
 			System.out.println("Errorea gertatu da, ezin da fitxategia irakurri");
 			e.printStackTrace();
 		}
+	}
+	
+	public void getArgitalpenenArgitalpenak() {
+		File nireFitxategia = new File("publications-citedPubs-all.txt");
+		
+		try (Scanner nireScanner = new Scanner(nireFitxategia)) {
+			while (nireScanner.hasNextLine()) {
+				String lineaOsoa = nireScanner.nextLine();
+				String[] zatitu = lineaOsoa.split(" # ");
+				String arg1Kode = zatitu[0];
+				String arg2Kode = zatitu[1];
+				Argitalpen arg = this.ListaArgitalpen.get(arg2Kode);
+				this.ListaArgitalpen.get(arg1Kode).gehituArgitalpen(arg2Kode, arg);
+			}
+			nireScanner.close();
+		} catch (FileNotFoundException e) {
+			System.out.println("Errorea gertatu da, ezin da fitxategia irakurri");
+			e.printStackTrace();
+		}
+		
+		
+	}
+	public Argitalpen getArgitalpen(String pKodea) {
+		return this.ListaArgitalpen.get(pKodea);
 	}
 	/*************************USUNE FITXATEGIEN KUDEAKETA***************************/	
 
