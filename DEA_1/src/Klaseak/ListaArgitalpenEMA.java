@@ -32,7 +32,6 @@ public class ListaArgitalpenEMA {
 			e.printStackTrace();
 		}
 		this.ListaArgitalpen = listaArgitalpen;
-		System.out.println(this.ListaArgitalpen);
 	}
 	
 	public void getArgitalpenenEgileak() {
@@ -43,12 +42,10 @@ public class ListaArgitalpenEMA {
 			while (nireScanner.hasNextLine()) {
 				String lineaOsoa = nireScanner.nextLine();
 				String[] zatitu = lineaOsoa.split(" # ");
-				for (String i : this.ListaArgitalpen.keySet()) {
-					if (i.equals(zatitu[0])) {		//Argitalpen kodeak berdinak dira
-						Egile eg = egileEMA.getEgile(zatitu[1]);	//Egilea aurkitu kodearekin
-						this.ListaArgitalpen.get(i).gehituEgile(zatitu[1], eg);	//Argitalpenaren listaEgile HashMap-ean egilea gehitu
-					}
-				}
+				String argKode = zatitu[0];
+				String egiKode = zatitu[1];
+				Egile egi = egileEMA.getEgile(egiKode);
+				this.ListaArgitalpen.get(argKode).gehituEgile(egiKode, egi);
 			}
 			nireScanner.close();
 		} catch (FileNotFoundException e) {
