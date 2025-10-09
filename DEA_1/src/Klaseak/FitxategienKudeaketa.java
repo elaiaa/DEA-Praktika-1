@@ -18,5 +18,21 @@ public class FitxategienKudeaketa {
 			e.printStackTrace();
 		}
 	}
+	public void fitxategiaSortu(String fALdatutakoFItxategiak, String[] lerroak) {
+		// Post: fIzena izeneko fitxategian idatzi dira lerroak
+		  try {
+		    PrintWriter writer = new PrintWriter(fALdatutakoFItxategiak, "UTF-8");
+		    for (String lerro: lerroak) {
+		      writer.println(lerro);
+		    }
+		    writer.close();
+		  } 
+		  catch (IOException e) {
+		    e.printStackTrace();
+		  }
+		}
+
+
+	
 }
   
