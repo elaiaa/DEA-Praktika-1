@@ -27,7 +27,7 @@ public class ListaArgitalpenEMA {
 			}
 			nireScanner.close();
 		} catch (FileNotFoundException e) {
-			System.out.println("Errorea gertatu da, ezin da fitxategia irakurri");
+			System.out.println("Errorea gertatu da, ezin da fitxategia aurkitu");
 			e.printStackTrace();
 		}
 	}
