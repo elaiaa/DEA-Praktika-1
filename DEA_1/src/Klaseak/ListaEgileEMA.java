@@ -1,12 +1,16 @@
-import java.util.ArrayList;
+package Klaseak;
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.HashMap;
-/*************************USUNE FITXATEGIEN KUDEAKETA***************************/	
+import java.util.Iterator;
+import java.util.Map;
+import java.util.Scanner;
+
 public class ListaEgileEMA {
 	private HashMap<String,Egile> ListaEgile;
+	private ListaEgileEMA() {ListaEgile = new HashMap<String, Egile>();}
 	private static ListaEgileEMA nireListaEgileEMA=null;
-	private ListaEgileEMA() {
-		this.ListaEgile = new  HashMap<String,Egile>();
-	}
+	
 	public static ListaEgileEMA getListaEgileEMA() {
 		if(nireListaEgileEMA==null) {
 			nireListaEgileEMA= new ListaEgileEMA();
@@ -14,7 +18,7 @@ public class ListaEgileEMA {
 		return nireListaEgileEMA;
 	}
 	
-	
+	//FITXATEGIEN KUDEAKETA
 	public void getListaEgile() {
 		File nireFitxategia = new File("authors-name-all.txt");
 		
@@ -31,11 +35,7 @@ public class ListaEgileEMA {
 			e.printStackTrace();
 		}
 	}
-	
-	public Egile getEgile(String pKodea) {
-		Egile eg = this.ListaEgile.get(pKodea);
-		return eg;
-	}
+
 	
 	public void getEgileenArgitalpenak() {
 		File nireFitxategia = new File("publications-authors-all-final.txt");
@@ -56,32 +56,48 @@ public class ListaEgileEMA {
 			e.printStackTrace();
 		}
 	}
-	/*************************USUNE FITXATEGIEN KUDEAKETA***************************/	
-	
-	
-	
-	//Egile bat emanda (identifikatzailea), bueltatu bere argitalpenak
-	public void getEgilearenArgitalpenak(Egile pEgile) {
-		String bilatzekoKodea=pEgile.getkodea();
-		if (this.aurkitutaEgile(pEgile)){
-			Egile egilea=ListaEgile.get(bilatzekoKodea);
-			egilea.getEgilearenArgitalpenak();
-		}
+	//METODOAK
+	public void argitalpenakErakutsi(String kodea) {
+	    Egile e = this.getEgile(kodea);
+	    if (e != null) {
+	    	UnorderedDoubleLinkedList<Argitalpen> argitalpenak = e.getListaargitalpen();
+	        
+	        if (argitalpenak.isEmpty()) {
+	            System.out.println("Ez daude argitalpenik egile honentzat.");
+	        } else {
+	            System.out.println("Argitalpenak:");
+	            Iterator<Argitalpen> itr = argitalpenak.iterator();
+	    		while(itr.hasNext()) {
+	    			Argitalpen a = itr.next();
+	    			System.out.println("Kodea: " + a.getKodea() + " - Izenburua: " + a.getTitulu());
+	    		}
+	        }
+	    } else {
+	        System.out.println("Ez da egilerik aurkitu kode honekin.");
+	    }
 	}
 	
-	public void removeEgile(String pEgile) {
-		if(nireListaEgileEMA.badagoEgilea(pEgile)) {
-			ListaEgile.remove(pEgile);
-		}
-
-
-	}
 	public boolean badagoEgilea(String bilatzekoKodea) {
 		if(ListaEgile.containsKey(bilatzekoKodea)) {
 			return true;
 		}
 		else {return false;}
 	}
+	
+	public void removeEgile(String pEgile) {
+		if(nireListaEgileEMA.badagoEgilea(pEgile)) {
+			ListaEgile.remove(pEgile);
+			System.out.println("Egilea ezabatu da!");
+		} else {
+			System.out.println("Ez da egilea aurkitu!");
+		}
+	}
+	
+	public boolean aurkitutaEgile(String pEgile) {
+		return (ListaEgile.containsKey(pEgile));
+
+	}
+	
 	public Egile getEgile(String kodea) {
 		if(this.badagoEgilea(kodea)) {
 			return ListaEgile.get(kodea);
@@ -89,5 +105,16 @@ public class ListaEgileEMA {
 		else {return null;}
 		
 	}
-
+	
+	public void erakutsiGuztiak() {
+		for (Map.Entry<String, Egile> entrada : this.ListaEgile.entrySet()) {
+	        System.out.println("Kodea: " + entrada.getKey() + " | " + entrada.getValue());
+	    }
+	}
+	
+	public HashMap<String, Egile> getListaEgileMapa() {
+	    return this.ListaEgile;
+	}
+	
+	
 }

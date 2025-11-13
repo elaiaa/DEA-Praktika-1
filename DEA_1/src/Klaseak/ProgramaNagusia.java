@@ -1,13 +1,22 @@
 package Klaseak;
 
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map.Entry;
 import java.util.Scanner;
 
 public class ProgramaNagusia {
 
+	private static ListaArgitalpenEMA argitalpenak = ListaArgitalpenEMA.getListaArgitalpenEMA();
+	private static ListaEgileEMA egileak = ListaEgileEMA.getListaEgileEMA();
+	private static Scanner sc = new Scanner(System.in);
 	public static void main(String[] args) {
-		Scanner sc = new Scanner(System.in);
-        int aukera;
         
+		int aukera = -1;
+
         datuakKargatu();
 
         do {
@@ -22,132 +31,215 @@ public class ProgramaNagusia {
             System.out.println("* 7.  Egile baten argitalpenak erakutsi");
             System.out.println("* 8.  Argitalpen bat ezabatu");
             System.out.println("* 9.  Egile bat ezabatu");
-            System.out.println("* 10. Datuak fitxategietan gorde");
-            System.out.println("* 11. Argitalpen zerrenda ordenatua erakutsi");
+            System.out.println("* 10. - Datuak fitxategietan gorde");
+            System.out.println("* 11. - Argitalpen zerrenda ordenatua erakutsi");
             System.out.println("* 0. Irten");
             System.out.print("Aukera: ");
 
             // Aukera irakurri
-            aukera = sc.nextInt();
+            if (sc.hasNextInt()) {
+    		    aukera = sc.nextInt();
+    		    sc.nextLine();
+    		    if (aukera >= 0 && aukera <= 11) {
+    		        System.out.println(aukera + ". aukera aukeratu duzu!");
+    		    } else {
+    		        System.out.println("❌ 0tik 11rako zenbaki bat aukeratu behar duzu!");
+    		    }
+    		} else {
+    		    System.out.println("❌ Sarrera okerra. 1etik 8ra bitarteko zenbaki bat sartu behar duzu.");
+    		    sc.next(); // limpiar el valor incorrecto
+    		    sc.nextLine(); //limpiar scaner
+    		}
 
             //Aukeraketa
             switch (aukera) {
                 case 1:
-                    System.out.println("1. aukera aukeratu duzu.");
                     algitalpenBilaketa();
+                    System.out.println(); // Linea en blanco para separar
+                    esperarEnter();
                     break;
                 case 2:
-                    System.out.println("2. aukera aukeratu duzu.");
                     algitalpenaTxertatu();
+                    System.out.println(); // Linea en blanco para separar
+                    esperarEnter();
                     break;
                 case 3:
-                    System.out.println("3. aukera aukeratu duzu.");
                     aipamenaGehitu();
+                    System.out.println(); // Linea en blanco para separar
+                    esperarEnter();
                     break;
                 case 4:
-                    System.out.println("4. aukera aukeratu duzu.");
                     egileaGehitu();
+                    System.out.println(); // Linea en blanco para separar
+                    esperarEnter();
                     break;
                 case 5:
-                    System.out.println("5. aukera aukeratu duzu.");
                     aipamenakErakutsi();
+                    System.out.println(); // Linea en blanco para separar
+                    esperarEnter();
                     break;
                 case 6:
-                    System.out.println("6. aukera aukeratu duzu.");
                     egileakErakutsi();
+                    System.out.println(); // Linea en blanco para separar
+                    esperarEnter();
                     break;
                 case 7:
-                    System.out.println("7. aukera aukeratu duzu.");
                     argitalpenakErakutsi();
+                    System.out.println(); // Linea en blanco para separar
+                    esperarEnter();
                     break;
                 case 8:
-                    System.out.println("8. aukera aukeratu duzu.");
                     argitalpenaEzabatu();
+                    System.out.println(); // Linea en blanco para separar
+                    esperarEnter();
                     break;
                 case 9:
-                    System.out.println("9. aukera aukeratu duzu.");
                     egileaEzabatu();
+                    System.out.println(); // Linea en blanco para separar
+                    esperarEnter();
                     break;
                 case 10:
-                    System.out.println("10. aukera aukeratu duzu.");
                     datuakFitxategianGorde();
+                    System.out.println(); // Linea en blanco para separar
+                    esperarEnter();
                     break;
                 case 11:
-                    System.out.println("11. aukera aukeratu duzu.");
                     argitalpenOrdenatuakErakutsi();
+                    System.out.println(); // Linea en blanco para separar
+                    esperarEnter();
                     break;
                 case 0:
                     System.out.println("Programatik irtetzen...");
                     break;
                 default:
                     System.out.println("Aukera okerra. Saiatu berriz!");
-            }
-
-            System.out.println(); // Linea en blanco para separar
-
+            }            
         } while (aukera != 0);
-
         sc.close();
-    }
-
+    }       
+	
 	private static void argitalpenOrdenatuakErakutsi() {
-		// TODO Auto-generated method stub
-		
+		OrderedDoubleLinkedList<Argitalpen> a = ListaArgitalpenEMA.getListaArgitalpenEMA().argitalpenOrdenatuak();
+		System.out.println("Argitalpenen zerrena alfabetikoki ordenatua:");
+		System.out.println("--------------------------------");
+		Iterator<Argitalpen> itr = a.iterator();
+		while(itr.hasNext()) {
+			Argitalpen arg = itr.next();
+			arg.printArgitalpen();
+		}
+		//for(int i=0;i<a.size(); i++) {
+		//	a.get(i).printArgitalpen();
+		//}
 	}
 
 	private static void argitalpenakErakutsi() {
-		// TODO Auto-generated method stub
-		
+		System.out.println("Sartu egilearen kodea: ");
+		String kodea = sc.nextLine();
+		egileak.argitalpenakErakutsi(kodea);	
 	}
 
 	private static void argitalpenaEzabatu() {
-		// TODO Auto-generated method stub
-		
+		System.out.println("Sartu argitalpenaren kodea: ");
+		String kodea = sc.nextLine();
+		argitalpenak.ezabatuArgitalpen(kodea);	
 	}
 
 	private static void egileaEzabatu() {
-		// TODO Auto-generated method stub
-		
+		System.out.println("Sartu egilearen kodea: ");
+		String kodea = sc.nextLine();
+		egileak.removeEgile(kodea);
 	}
 
 	private static void datuakFitxategianGorde() {
-		// TODO Auto-generated method stub
-		
+		ArgitalpenenFitxategiaSortu("argitalpenakEguneratuta.txt",argitalpenak.getListaArgitalpenMapa());
+		EgileenFitxategiaSortu("egileakEguneratuta.txt" , egileak.getListaEgileMapa());
 	}
 
+	
 	private static void egileakErakutsi() {
-		// TODO Auto-generated method stub
-		
+		System.out.println("Sartu argitalpenaren kodea: ");
+		String a = sc.nextLine();
+		argitalpenak.egileakErakutsi(a);
 	}
 
 	private static void aipamenakErakutsi() {
-		// TODO Auto-generated method stub
-		
+		System.out.println("Sartu argitalpenaren kodea: ");
+		String a = sc.nextLine();
+		argitalpenak.erakutsiAipamenak(a);
 	}
 
 	private static void egileaGehitu() {
-		// TODO Auto-generated method stub
-		
+		System.out.println("Sartu argitalpenaren kodea: ");
+		String argitalpen = sc.nextLine();
+		System.out.println("Sartu egilearen kodea: ");
+		String egile = sc.nextLine();
+		boolean eginda = argitalpenak.gehituEgileArgitalpenari(argitalpen, egile);
+		if (eginda)System.out.println("Egilea gorde da!");
 	}
-
+	
 	private static void aipamenaGehitu() {
-		// TODO Auto-generated method stub
-		
+		System.out.println("Sartu argitalpenaren kodea: ");
+		String kodea = sc.nextLine();
+		System.out.println("Sartu aipamenaren kodea: ");
+		String izenburua = sc.nextLine();
+		boolean eginda = argitalpenak.aipamenaGehitu(kodea, izenburua);
+		if (eginda) System.out.println("Aipamena gorde da!");
+		else System.out.println("Aipamena ez da gorde!");
 	}
 
 	private static void algitalpenaTxertatu() {
-		// TODO Auto-generated method stub
-		
+		System.out.println("Sartu argitalpenaren kodea: ");
+		String kodea = sc.nextLine();
+		System.out.println("Sartu argitalpenaren izenburua: ");
+		String izenburua = sc.nextLine();
+		boolean eginda = argitalpenak.gehituArgitalpen(kodea, izenburua);
+		if (eginda) System.out.println("Gehitu da algitalpena!");
+		else System.out.println("Ezin izan da argitalpena gehitu!");	
 	}
-
+	
 	private static void algitalpenBilaketa() {
-		// TODO Auto-generated method stub
-		
+		System.out.println("Sartu argitalpenaren kodea: ");
+		String kodea = sc.nextLine();
+		Argitalpen bilatua = argitalpenak.argitalpenaBilatu(kodea);
+		if (bilatua != null) System.out.println("Izenburua: "+ bilatua.getTitulu());
 	}
 
 	private static void datuakKargatu() {
-		// TODO Auto-generated method stub
-		
+		egileak.getListaEgile();
+		argitalpenak.getListaArgitalpen();
+		argitalpenak.getArgitalpenenEgileak();
+		argitalpenak.getArgitalpenenArgitalpenak();
 	}
-
+	
+	private static void esperarEnter() {
+	    System.out.println(" Sakatu Enter jarraitzeko...");
+	    sc.nextLine();
+	}
+	
+	private static void ArgitalpenenFitxategiaSortu(String fitxategiIzena, HashMap<String, Argitalpen> map) {
+	    try {
+	        PrintWriter writer = new PrintWriter(fitxategiIzena, "UTF-8");
+	        for (Entry<String, Argitalpen> entry : map.entrySet()) {
+	            writer.println(entry.getKey() + " # " + entry.getValue());
+	        }
+	        writer.close();
+	    } 
+	    catch (IOException e) {
+	        e.printStackTrace();
+	    }
+	}
+	
+	private static void EgileenFitxategiaSortu(String fitxategiIzena, HashMap<String, Egile> map) {
+	    try {
+	        PrintWriter writer = new PrintWriter(fitxategiIzena, "UTF-8");
+	        for (Entry<String, Egile> entry : map.entrySet()) {
+	            writer.println(entry.getKey() + " # " + entry.getValue());
+	        }
+	        writer.close();
+	    } 
+	    catch (IOException e) {
+	        e.printStackTrace();
+	    }
+	}
+	
 }

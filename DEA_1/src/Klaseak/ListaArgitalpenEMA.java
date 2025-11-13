@@ -1,5 +1,8 @@
 package Klaseak;
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.*;
+import java.util.ArrayList;
 
 public class ListaArgitalpenEMA {
 	private HashMap<String, Argitalpen> ListaArgitalpen;
@@ -7,14 +10,15 @@ public class ListaArgitalpenEMA {
 	private ListaArgitalpenEMA() {
 		this.ListaArgitalpen=new HashMap<String, Argitalpen>();
 	}
+	
 	public static ListaArgitalpenEMA getListaArgitalpenEMA() {
 		if(nireArgitalpenEMA==null) {
 			nireArgitalpenEMA= new ListaArgitalpenEMA();
 		}
 		return nireArgitalpenEMA;
 	}
-
-	/*************************USUNE FITXATEGIEN KUDEAKETA***************************/	
+	
+	//FITXATEGIEN KUDEAKETA
 	public void getListaArgitalpen() {
 		File nireFitxategia = new File("publications-titles-all.txt");
 		
@@ -68,22 +72,19 @@ public class ListaArgitalpenEMA {
 		} catch (FileNotFoundException e) {
 			System.out.println("Errorea gertatu da, ezin da fitxategia irakurri");
 			e.printStackTrace();
-		}
-		
-		
+		}		
 	}
 	public Argitalpen getArgitalpen(String pKodea) {
 		return this.ListaArgitalpen.get(pKodea);
 	}
-	/*************************USUNE FITXATEGIEN KUDEAKETA***************************/	
-
 	
-	//metodoak
+	//METODOAK
 		public boolean aurkituArgitalpen(String pKodea) {
 			return ListaArgitalpen.containsKey(pKodea);
 		}
+		
 		public Argitalpen argitalpenaBilatu(String pKodea) {
-			boolean aurki=aurkituArgitalpen(pKodea);
+			boolean aurki=ListaArgitalpen.containsKey(pKodea);
 			if(aurki) {
 				return ListaArgitalpen.get(pKodea);
 			}
@@ -91,42 +92,100 @@ public class ListaArgitalpenEMA {
 				System.out.println("Ez da argitalpenik aurkitu");
 				return null;
 			}
-		//////////////////ELAIA///////////////////////////////
+		}
 		
-		public HashMap<String, Argitalpen> argitalpenAipamenak(String kodea) {
-			Argitalpen a= this.argitalpenaBilatu(kodea);
-			return a.getListaargitalpen();
+		public void erakutsiAipamenak(String kodea) {
+		    Argitalpen a = this.argitalpenaBilatu(kodea);
+		    if (a != null) {
+		        HashMap<String, Argitalpen> aipamenak = a.getListaargitalpen();
+		        if (aipamenak.isEmpty()) {
+		            System.out.println("Ez dago aipamenik argitalpen honentzat.");
+		        } else {
+		            System.out.println("Aipamenak:");
+		            for (String kod : aipamenak.keySet()) {
+		                Argitalpen aipamena = aipamenak.get(kod);
+		                System.out.println("Kodea: " + kod + " - Izenburua: " + aipamena.getTitulu());
+		            }
+		        }
+		    } else {
+		        System.out.println("Ez da argitalpenik aurkitu kode honekin.");
+		    }
 		}
-		public HashMap<String, Egile> egileak(String kodea) {
-			Argitalpen a= this.argitalpenaBilatu(kodea);
-			return a.getListaegile();
+		
+		public void egileakErakutsi(String kodea) {
+		    Argitalpen a = this.argitalpenaBilatu(kodea);
+		    
+		    if (a != null) {
+		        HashMap<String, Egile> egileak = a.getListaegile();
+		        
+		        if (egileak.isEmpty()) {
+		            System.out.println("Ez daude egilerik argitalpen honentzat.");
+		        } else {
+		            System.out.println("Egileak:");
+		            for (String kod : egileak.keySet()) {
+		                Egile egilea = egileak.get(kod);
+		                System.out.println("Kodea: " + kod + " - Izena: " + egilea.getIzena());
+		            }
+		        }
+		    } else {
+		        System.out.println("Ez da argitalpenik aurkitu kode honekin.");
+		    }
 		}
-		public void gehituEgileArgitalpenari(String kodeArgitalpen, String kodeEgile) {
+		
+		public boolean gehituEgileArgitalpenari(String kodeArgitalpen, String kodeEgile) {
+			boolean erantzuna= false;
 			Egile e= ListaEgileEMA.getListaEgileEMA().getEgile(kodeEgile);
-			if(this.ListaArgitalpen.containsKey(kodeArgitalpen))
+			if (e != null) {
+				if(this.ListaArgitalpen.containsKey(kodeArgitalpen))
 				{Argitalpen a= ListaArgitalpen.get(kodeArgitalpen);
-				a.gehituEgile(e);}
+				a.gehituEgile(e); erantzuna=true;
+				} else {System.out.println("Ez da argitralpen hori existitzen!");}
+			} else {System.out.println("Ez da egile hori existitzen!");}
+			return erantzuna;
 		}
-		/////////////////ELAIA-END//////////////////////////////////////////////////
-		}
+		
 		public void ezabatuArgitalpen(String pKodea) {
 			boolean aurki=aurkituArgitalpen(pKodea);
-			if(aurki) {ListaArgitalpen.remove(pKodea);}
+			if(aurki) {
+				ListaArgitalpen.remove(pKodea);
+				System.out.println("Argitalpena ezabatu da!");
+			} else {System.out.println("Ez da argitalpena aurkitu!");;}
 		}
-
-		///////////////////////GAIZKA//////////////////////
-		public void gehituArgitalpen(String pKod, String pTit) {
+		public boolean gehituArgitalpen(String pKod, String pTit) {
+			boolean erantzuna;
 			Argitalpen a= new Argitalpen(pKod, pTit);
-			if(ListaArgitalpen.containsKey(pKod)) {}
-			else {
+			if(ListaArgitalpen.containsKey(pKod)) {
+				System.out.println("Existitzen da argitalpena jada!");
+				erantzuna = false;
+			}else {
 				ListaArgitalpen.put(pKod, a);
+				erantzuna = true;
 			}
+			return erantzuna;
 		}
 		
-		public void aipamenaGehitu(String pKodNon, String pKonZein) {
+		public void erakutsiGuztiak() {
+			for (Map.Entry<String, Argitalpen> entrada : this.ListaArgitalpen.entrySet()) {
+		        System.out.println("Kodea: " + entrada.getKey() + " | " + entrada.getValue());
+		    }
+		}
+		
+		public boolean aipamenaGehitu(String pKodNon, String pKonZein) {
+			boolean eginda = false;
 			Argitalpen a= argitalpenaBilatu(pKodNon);
-			a.aipamenaGehitu(pKonZein);
-		}
-	/////////////////////GAIZKA-END////////////////////
+			if (a!= null)  eginda = a.aipamenaGehitu(pKonZein);
+			return eginda;
+		}	
 		
+		public HashMap<String, Argitalpen> getListaArgitalpenMapa() {
+		    return this.ListaArgitalpen;
+		}
+		
+		public OrderedDoubleLinkedList<Argitalpen> argitalpenOrdenatuak(){
+			OrderedDoubleLinkedList<Argitalpen> zerOrd = new OrderedDoubleLinkedList<Argitalpen>();
+			for(Argitalpen i : ListaArgitalpen.values()) {
+				zerOrd.add(i);
+			}
+			return zerOrd;
+		}
 	}
