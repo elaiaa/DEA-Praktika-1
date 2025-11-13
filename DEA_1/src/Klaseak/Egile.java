@@ -1,60 +1,52 @@
-import java.util.ArrayList;
-import java.util.HashMap;
+package Klaseak;
 
-public class ListaEgileEMA {
-	private HashMap<String,Egile> ListaEgile;
-	private ListaEgileEMA() {new  HashMap<String,Egile>();}
-	private static ListaEgileEMA nireListaEgileEMA=null;
-	public static ListaEgileEMA getListaEgileEMA() {
-		if(nireListaEgileEMA==null) {
-			nireListaEgileEMA= new ListaEgileEMA();
-		}
-		return nireListaEgileEMA;
-	}
-	//****************************************FITXATEGIEN KUDEAKETA USUNE************************************
-	public void gehituArgitalpen(String pKodea, Argitalpen pArgitalpen) {
-		this.argitalpenak.put(pKodea, pArgitalpen);
-	}
-	//****************************************FITXATEGIEN KUDEAKETA USUNE************************************
+
+import java.util.HashMap;
+import java.util.Iterator;
+
+
+public class Egile implements Comparable<Egile>{
+	private String izena;
+	private String kodea;
+	private UnorderedDoubleLinkedList<Argitalpen> argitalpenak;
 	
-	
-	
-	
-	//Egile bat emanda (identifikatzailea), bueltatu bere argitalpenak
-	public void getEgilearenArgitalpenak(Egile pEgile) {
-		String bilatzekoKodea=pEgile.getkodea();
-		if (this.aurkitutaEgile(pEgile)){
-			Egile egilea=ListaEgile.get(bilatzekoKodea);
-			egilea.getEgilearenArgitalpenak();
-		}
-	}
-	
-	public void removeEgile(Egile pEgile) {
-		if (this.aurkitutaEgile(pEgile)){ListaEgile.remove(pEgile.getkodea());}
-		ListaEgile.remove(pEgile.getkodea());
-	}
-	public boolean aurkitutaEgile(Egile pEgile) {
-		String bilatzekoKodea=pEgile.getkodea();
-		if (ListaEgile.containsKey(bilatzekoKodea)) {
-			return true;
-		}
-		else
-		{return false;}
-	}
-	
-	public boolean badagoEgilea(String bilatzekoKodea) {
-		if(ListaEgile.containsKey(bilatzekoKodea)) {
-			return true;
-		}
-		else {return false;}
-	}
-	public Egile getEgile(String kodea) {
-		if(this.badagoEgilea(kodea)) {
-			return ListaEgile.get(kodea);
-		}
-		else {return null;}
+	public Egile(String pIzena, String pKodea) {
+		super();
+		this.izena = pIzena;
+		this.kodea = pKodea;
+		this.argitalpenak = new UnorderedDoubleLinkedList<Argitalpen>();
 		
+	}
+	
+	//FITXATEGIEN KUDEAKETA
+	public void gehituArgitalpen(String pKodea, Argitalpen pArgitalpen) {
+		this.argitalpenak.addToRear(pArgitalpen);
+	}
+	
+	//METODOAK
+	public UnorderedDoubleLinkedList<Argitalpen> getListaargitalpen() {
+		return argitalpenak;
+	}
+
+	public void setListaargitalpen(UnorderedDoubleLinkedList<Argitalpen> listaargitalpen) {
+		this.argitalpenak = listaargitalpen;
+	}
+	
+	public void getEgilearenArgitalpenak(){
+		Iterator<Argitalpen> itr = argitalpenak.iterator();
+		while(itr.hasNext()) {
+			Argitalpen a = itr.next();
+			System.out.println(a.getTitulu());
+		}
+	}
+
+	public String getkodea() {return this.kodea;}
+	
+	public String getIzena() {return this.izena;}
+
+	@Override
+	public int compareTo(Egile e) {
+		return this.izena.compareToIgnoreCase(e.izena);
 	}
 
 }
-
