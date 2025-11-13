@@ -120,7 +120,7 @@ public class ProgramaNagusia {
 	
 	private static void argitalpenOrdenatuakErakutsi() {
 		OrderedDoubleLinkedList<Argitalpen> a = ListaArgitalpenEMA.getListaArgitalpenEMA().argitalpenOrdenatuak();
-		System.out.println("Argitalpenen zerrena alfabetikoki ordenatua:");
+		System.out.println("Argitalpenen zerrenda alfabetikoki ordenatua:");
 		System.out.println("--------------------------------");
 		Iterator<Argitalpen> itr = a.iterator();
 		while(itr.hasNext()) {
@@ -243,3 +243,4 @@ public class ProgramaNagusia {
 	}
 	
 }
+
