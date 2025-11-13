@@ -142,23 +142,29 @@ public class DoubleLinkedList<T> implements ListADT<T> {
 		// Zerrendaren kopia bat itzultzen du (ez du punteroa bikoizten)
 		
 		DoubleLinkedList<T> kopia = new DoubleLinkedList<>();
-	    if (isEmpty()) {return kopia;}
+	    if (this.isEmpty()) {return kopia;}
 	    else {
-	    Node<T> oraingo = last.next;
-	    while (oraingo != null) {
-	        Node<T> berria = new Node<>(oraingo.data);
-	        if (kopia.last == null) {
-	        	kopia.last = berria;
-	        } else {
-	            
-	        	berria.prev = kopia.last;
-	            kopia.last.next = berria;
-	            kopia.last = berria;
-	        }
-	        kopia.count++;
-	        oraingo = oraingo.next;
-	    }
-	    return kopia;
+	    	Node<T> berri = null;
+	    	Node<T> first = null;
+	    	Iterator<T> itr = this.iterator();
+    		while(itr.hasNext()) {
+    			T t = itr.next();
+    			berri = new Node<T>(t);
+    			if(kopia.last==null) {
+    				kopia.last = berri;
+    				first = berri;
+    				first.prev = kopia.last;
+    				kopia.last.next = first;
+    			}
+    			else {
+    				kopia.last.next = berri;
+    				berri.prev = kopia.last;
+    				berri.next = first;
+    				first.prev = berri;
+    				kopia.last = berri;
+    			}
+    		}
+	    	return kopia;
 	
 	   // KODEA OSATU ETA KOSTUA KALKULATU		
 	} }

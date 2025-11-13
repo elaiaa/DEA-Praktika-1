@@ -15,6 +15,7 @@ public class UnorderedDoubleLinkedList<T> extends DoubleLinkedList<T> implements
 			berria.next = lehena;
 			berria.prev = last;
 			last.next = berria;
+			last=berria;
 			count++;
 		}
 		// KODEA OSATU ETA KOSTUA KALKULATU
@@ -27,8 +28,8 @@ public class UnorderedDoubleLinkedList<T> extends DoubleLinkedList<T> implements
 			Node<T> berria = new Node<T>(elem);
 	        if (this.last == null ) {
 				this.last = berria;
-				this.last.next=last; //////////
-				this.count = 1;
+				this.last.next=last;//////////
+				count++;
 			} else if (last.next == null) {
 				last.next = berria;
 				berria.prev = last;
@@ -43,7 +44,7 @@ public class UnorderedDoubleLinkedList<T> extends DoubleLinkedList<T> implements
 				berria.next = first;
 				first.prev = berria;
 				last = berria;
-				this.count = this.count + 1;
+				count++;
 			}
 		}
 	

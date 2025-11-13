@@ -244,6 +244,3 @@ public class ProgramaNagusia {
 	}
 	
 }
-
-
-
