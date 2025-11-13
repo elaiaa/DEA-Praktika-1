@@ -206,8 +206,8 @@ public class ProgramaNagusia {
 
 	private static void datuakKargatu() {
 		egileak.getListaEgile();
-		egileak.getEgileenArgitalpenak();
 		argitalpenak.getListaArgitalpen();
+		egileak.getEgileenArgitalpenak();
 		argitalpenak.getArgitalpenenEgileak();
 		argitalpenak.getArgitalpenenArgitalpenak();
 	}
@@ -244,5 +244,6 @@ public class ProgramaNagusia {
 	}
 	
 }
+
 
 
