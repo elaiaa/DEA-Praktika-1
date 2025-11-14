@@ -69,20 +69,41 @@ public class Graph {
 	   }
 	}
 	
-	public boolean erlazionatuta(String a1, String a2){
+	public boolean erlazionatutaBoolean(String a1, String a2){
 		Queue<Integer> aztertuGabeak = new LinkedList<Integer>();
 		
 		int pos1 = th.get(a1);
 		int pos2 = th.get(a2);
 		boolean aurkitua = false;
 		boolean[] aztertuak = new boolean[th.size()];
-
-                 // KODEA INPLEMENTATU    
 		
+		if (!th.containsKey(a1) || !th.containsKey(a2)) 
+			{aurkitua=false;}
+		else {
+			aztertuGabeak.add(pos1);
+		    aztertuak[pos1] = true;
+		    
+		    while (!aztertuGabeak.isEmpty() && !aurkitua) {
+		    	
+		    	int unekoa = aztertuGabeak.remove();//hurrengoko aktorea atera aztertzeko
+		    	
+		    	if (unekoa == pos2) {
+		            aurkitua = true;}
+		        else {
+		        	for (int lagun : adjList[unekoa]) {//auzokideak aztertu
+		                if (!aztertuak[lagun]) {//auzokide hau aztertuta ez badago
+		                    aztertuak[lagun] = true;//aztertu bezala jarri
+		                    aztertuGabeak.add(lagun);//eta aztertzeko listara gehitu gero aztertzeko
+		            	}  
+		        	}
+		        	
+		        }
+
+		    }
+
+		}
 		return aurkitua;
-
 	}
-
 	public ArrayList<String> erlazionatutaBidea(String a1, String a2){
 		    // KODEA INPLEMENTATU    
 		ArrayList<String> bidea = new ArrayList<String>();
@@ -91,3 +112,4 @@ public class Graph {
 	}
 
 }
+
