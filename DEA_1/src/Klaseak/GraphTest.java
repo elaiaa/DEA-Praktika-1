@@ -77,6 +77,15 @@ public class GraphTest {
 		Graph grafoa = new Graph();
 		grafoa.grafoaSortu(ListaEgileEMA.getListaEgileEMA());
 		grafoa.print();
+		
+		System.out.println(" ");
+		
+		System.out.println("Erlazionatuta?");
+		String iz1 = "";
+		String iz2 = "";
+		boolean erl = grafoa.erlazionatutaBoolean(iz1, iz2);
+		System.out.println(erl);
 	}
 
 }
+
