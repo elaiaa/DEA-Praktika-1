@@ -105,11 +105,35 @@ public class Graph {
 		return aurkitua;
 	}
 	public ArrayList<String> erlazionatutaBidea(String a1, String a2){
-		    // KODEA INPLEMENTATU    
+		int hasieraEgile = this.th.get(a1);
+		int amaieraEgile = this.th.get(a2);
 		ArrayList<String> bidea = new ArrayList<String>();
+		boolean[] dagoenekoAztertuta = new boolean[adjList.length];
+		bidea.add(a1);		//Lehenengo egilea gehitu
+		int indizea = aurkituBidea(amaieraEgile, hasieraEgile, dagoenekoAztertuta, bidea);		//Indizea: Erabiliko ez den aldagaia
+		bidea.add(a2);		//Azken egilea gehitu
 		return bidea;
-
+	}
+	
+	public int aurkituBidea(int egile, int indize, boolean[] aztertutakoOkerrak, ArrayList<String> bidea) {
+		if (aztertutakoOkerrak[indize]) {
+			return -1;
+		}
+		if (this.adjList[indize].contains(egile)) {
+			return indize;
+		} else {
+			aztertutakoOkerrak[indize] = true;
+			for (int aztertzeke : adjList[indize]) {
+        		int erantzuna = aurkituBidea(egile, aztertzeke, aztertutakoOkerrak, bidea);
+        		if (erantzuna != -1) {
+					bidea.add(0, keys[aztertzeke]);
+            		return erantzuna;
+        		}
+			} 
+		}
+		return -1;
 	}
 
 }
+
 
