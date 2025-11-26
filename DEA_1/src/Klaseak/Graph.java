@@ -114,7 +114,6 @@ public class Graph {
 			int hasieraEgile = this.th.get(a1);
 			int amaieraEgile = this.th.get(a2);
 			boolean[] dagoenekoAztertuta = new boolean[adjList.length];
-			bidea.add(a1);		//Lehenengo egilea gehitu
 			int indizea = aurkituBidea(amaieraEgile, hasieraEgile, dagoenekoAztertuta, bideaAlderantziz);
 			if (indizea == -1) { //Biderik ez
 				return null;
@@ -149,6 +148,7 @@ public class Graph {
 	}
 
 }
+
 
 
 
