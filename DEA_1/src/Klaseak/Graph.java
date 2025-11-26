@@ -105,14 +105,22 @@ public class Graph {
 		return aurkitua;
 	}
 	public ArrayList<String> erlazionatutaBidea(String a1, String a2){
-		int hasieraEgile = this.th.get(a1);
-		int amaieraEgile = this.th.get(a2);
 		ArrayList<String> bidea = new ArrayList<String>();
-		boolean[] dagoenekoAztertuta = new boolean[adjList.length];
-		bidea.add(a1);		//Lehenengo egilea gehitu
-		int indizea = aurkituBidea(amaieraEgile, hasieraEgile, dagoenekoAztertuta, bidea);		//Indizea: Erabiliko ez den aldagaia
-		bidea.add(a2);		//Azken egilea gehitu
-		return bidea;
+		if (a1.equals(a2)) { //Egile berbera
+			return bidea.(a1);
+		} else {
+			int hasieraEgile = this.th.get(a1);
+			int amaieraEgile = this.th.get(a2);
+			boolean[] dagoenekoAztertuta = new boolean[adjList.length];
+			bidea.add(a1);		//Lehenengo egilea gehitu
+			int indizea = aurkituBidea(amaieraEgile, hasieraEgile, dagoenekoAztertuta, bidea);
+			if (indizea == -1) { //Biderik ez
+				return null;
+			} else {
+				bidea.add(a2);		//Azken egilea gehitu
+				return bidea;
+			}
+		}
 	}
 	
 	private int aurkituBidea(int egile, int indize, boolean[] aztertutakoak, ArrayList<String> bidea) {
@@ -135,6 +143,7 @@ public class Graph {
 	}
 
 }
+
 
 
 
