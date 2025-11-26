@@ -115,7 +115,7 @@ public class Graph {
 		return bidea;
 	}
 	
-	public int aurkituBidea(int egile, int indize, boolean[] aztertutakoOkerrak, ArrayList<String> bidea) {
+	private int aurkituBidea(int egile, int indize, boolean[] aztertutakoOkerrak, ArrayList<String> bidea) {
 		if (aztertutakoOkerrak[indize]) {
 			return -1;
 		}
@@ -135,5 +135,6 @@ public class Graph {
 	}
 
 }
+
 
 
