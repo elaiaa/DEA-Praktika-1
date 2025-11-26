@@ -139,7 +139,7 @@ public class Graph {
 			for (int aztertzeke : adjList[indize]) {
         		int erantzuna = aurkituBidea(egile, aztertzeke, aztertutakoak, bideaAlderantziz);
         		if (erantzuna != -1) {
-					bidea.add(keys[aztertzeke]);
+					bideaAlderantziz.add(keys[aztertzeke]);
             		return erantzuna;
         		}
 			} 
@@ -148,6 +148,7 @@ public class Graph {
 	}
 
 }
+
 
 
 
