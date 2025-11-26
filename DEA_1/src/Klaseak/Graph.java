@@ -115,16 +115,16 @@ public class Graph {
 		return bidea;
 	}
 	
-	private int aurkituBidea(int egile, int indize, boolean[] aztertutakoOkerrak, ArrayList<String> bidea) {
-		if (aztertutakoOkerrak[indize]) {
+	private int aurkituBidea(int egile, int indize, boolean[] aztertutakoak, ArrayList<String> bidea) {
+		if (aztertutakoak[indize]) {
 			return -1;
 		}
 		if (this.adjList[indize].contains(egile)) {
 			return indize;
 		} else {
-			aztertutakoOkerrak[indize] = true;
+			aztertutakoak[indize] = true;
 			for (int aztertzeke : adjList[indize]) {
-        		int erantzuna = aurkituBidea(egile, aztertzeke, aztertutakoOkerrak, bidea);
+        		int erantzuna = aurkituBidea(egile, aztertzeke, aztertutakoak, bidea);
         		if (erantzuna != -1) {
 					bidea.add(0, keys[aztertzeke]);
             		return erantzuna;
@@ -135,6 +135,7 @@ public class Graph {
 	}
 
 }
+
 
 
 
