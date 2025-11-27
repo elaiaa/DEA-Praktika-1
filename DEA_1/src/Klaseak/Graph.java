@@ -112,50 +112,71 @@ public class Graph {
 		}
 		return aurkitua;
 	}
-	public ArrayList<String> erlazionatutaBidea(String a1, String a2){
-		ArrayList<String> bideaAlderantziz = new ArrayList<String>();
-		ArrayList<String> bidea = new ArrayList<String>();
-		if (a1.equals(a2)) { //Egile berbera
-			bidea.add(a1);
-			return bidea;
-		} else {
-			int hasieraEgile = this.th.get(a1);
-			int amaieraEgile = this.th.get(a2);
-			boolean[] dagoenekoAztertuta = new boolean[adjList.length];
-			int indizea = aurkituBidea(amaieraEgile, hasieraEgile, dagoenekoAztertuta, bideaAlderantziz);
-			if (indizea == -1) { //Biderik ez
-				return null;
-			} else {
-				bidea.add(a1);
-				while (!bideaAlderantziz.isEmpty()) {
-					bidea.add(bideaAlderantziz.remove(bideaAlderantziz.size() - 1));
-				}
-				bidea.add(a2);		//Azken egilea gehitu
-				return bidea;
-			}
-		}
-	}
-	
-	private int aurkituBidea(int egile, int indize, boolean[] aztertutakoak, ArrayList<String> bideaAlderantziz) {
-		if (aztertutakoak[indize]) {
-			return -1;
-		}
-		aztertutakoak[indize] = true;
-		if (this.adjList[indize].contains(egile)) {
-			return indize;
-		} else {
-			for (int aztertzeke : adjList[indize]) {
-        		int erantzuna = aurkituBidea(egile, aztertzeke, aztertutakoak, bideaAlderantziz);
-        		if (erantzuna != -1) {
-					bideaAlderantziz.add(keys[aztertzeke]);
-            		return erantzuna;
-        		}
-			} 
-		}
-		return -1;
-	}
+	public ArrayList<String> erlazionatutaBidea(String a1, String a2) {
 
+	    // Caso trivial
+	    if (a1.equals(a2)) {
+	        ArrayList<String> b = new ArrayList<>();
+	        b.add(a1);
+	        return b;
+	    }
+
+	    // Verificar que existen
+	    if (!th.containsKey(a1) || !th.containsKey(a2))
+	        return null;
+
+	    int start = th.get(a1);
+	    int goal = th.get(a2);
+
+	    boolean[] visited = new boolean[adjList.length];
+	    int[] parent = new int[adjList.length];   // para reconstruir el camino
+	    Arrays.fill(parent, -1);
+
+	    Queue<Integer> queue = new LinkedList<>();
+	    queue.add(start);
+	    visited[start] = true;
+
+	    boolean found = false;
+
+	    // BFS iterativo
+	    while (!queue.isEmpty()) {
+
+	        int current = queue.poll();
+
+	        // Si encontramos el objetivo, paramos
+	        if (current == goal) {
+	            found = true;
+	            break;
+	        }
+
+	        // Explorar vecinos
+	        for (int neighbor : adjList[current]) {
+	            if (!visited[neighbor]) {
+	                visited[neighbor] = true;
+	                parent[neighbor] = current;
+	                queue.add(neighbor);
+	            }
+	        }
+	    }
+
+	    // Si no se encontró camino
+	    if (!found) return null;
+
+	    // Reconstrucción del camino
+	    ArrayList<String> path = new ArrayList<>();
+	    int curr = goal;
+
+	    while (curr != -1) {
+	        path.add(keys[curr]);
+	        curr = parent[curr];
+	    }
+
+	    // Está al revés → darle la vuelta
+	    Collections.reverse(path);
+	    return path;
+	}
 }
+
 
 
 
