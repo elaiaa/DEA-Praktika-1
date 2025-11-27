@@ -6,18 +6,22 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map.Entry;
+import java.util.Random;
 import java.util.Scanner;
 
 public class ProgramaNagusia {
 
 	private static ListaArgitalpenEMA argitalpenak = ListaArgitalpenEMA.getListaArgitalpenEMA();
 	private static ListaEgileEMA egileak = ListaEgileEMA.getListaEgileEMA();
+	private static Graph grafoa = new Graph();
 	private static Scanner sc = new Scanner(System.in);
+	
 	public static void main(String[] args) {
         
 		int aukera = -1;
 
         datuakKargatu();
+        erlaziotest(grafoa);
 
         do {
             // Menua erakutsi
@@ -31,8 +35,10 @@ public class ProgramaNagusia {
             System.out.println("* 7.  Egile baten argitalpenak erakutsi");
             System.out.println("* 8.  Argitalpen bat ezabatu");
             System.out.println("* 9.  Egile bat ezabatu");
-            System.out.println("* 10. - Datuak fitxategietan gorde");
-            System.out.println("* 11. - Argitalpen zerrenda ordenatua erakutsi");
+            System.out.println("* 10. Datuak fitxategietan gorde");
+            System.out.println("* 11. Argitalpen zerrenda ordenatua erakutsi");
+            System.out.println("* 12. Bi egileren arteko konexioa");
+            System.out.println("* 13. Bi egile konektatuta dauden");
             System.out.println("* 0. Irten");
             System.out.print("Aukera: ");
 
@@ -105,6 +111,16 @@ public class ProgramaNagusia {
                     break;
                 case 11:
                     argitalpenOrdenatuakErakutsi();
+                    System.out.println(); // Linea en blanco para separar
+                    esperarEnter();
+                    break;
+                case 12:
+                    egileenBidea();
+                    System.out.println(); // Linea en blanco para separar
+                    esperarEnter();
+                    break;
+                case 13:
+                    egileenBideaBooolean();
                     System.out.println(); // Linea en blanco para separar
                     esperarEnter();
                     break;
@@ -210,6 +226,7 @@ public class ProgramaNagusia {
 		egileak.getEgileenArgitalpenak();
 		argitalpenak.getArgitalpenenEgileak();
 		argitalpenak.getArgitalpenenArgitalpenak();
+		grafoa.grafoaSortu(egileak);
 	}
 	
 	private static void esperarEnter() {
@@ -241,6 +258,55 @@ public class ProgramaNagusia {
 	    catch (IOException e) {
 	        e.printStackTrace();
 	    }
+	}
+	
+	private static void egileenBidea() {
+		System.out.println("Sartu egilearen izena: ");
+		String kodea1 = sc.nextLine();
+		System.out.println("Sartu beste egilearen izena: ");
+		String kodea2 = sc.nextLine();
+		ArrayList<String> bidea = grafoa.erlazionatutaBidea(kodea1, kodea2);
+		System.out.println(bidea);
+	
+	}
+	
+	private static void egileenBideaBooolean() {
+		System.out.println("Sartu egilearen izena: ");
+		String kodea1 = sc.nextLine();
+		System.out.println("Sartu beste egilearen izena: ");
+		String kodea2 = sc.nextLine();
+		boolean bai = grafoa.erlazionatutaBoolean(kodea1, kodea2);
+		if (bai) System.out.println(kodea1 + "eta" + kodea2 + "konekatuta daude.");
+		else System.out.println(kodea1 + "eta" + kodea2 + " ez daude konekatuta.");
+	}
+	
+	private static void erlaziotest(Graph g) {
+		System.out.println("ErlazionatutaBidea test bidean! Itxaron minutu 1...");
+	    long start = System.currentTimeMillis();
+	    long duration = 10 * 1000; // 10 segundo
+
+	    int total = 0;
+
+	    String[] egileak = g.keys;
+	    int n = egileak.length;
+
+	    Random r = new Random();
+
+	    while (System.currentTimeMillis() - start < duration) {
+	        // 2 egile random
+	        String a1 = egileak[r.nextInt(n)];
+	        String a2 = egileak[r.nextInt(n)];
+
+	        if (!a1.equals(a2)) {
+	        	ArrayList<String> bidea = g.erlazionatutaBidea(a1, a2);
+	        	total++;
+	        }
+	    }
+
+	    System.out.println("======================================");
+	    System.out.println("ErlazionatutaBidea test amaitua!");
+	    System.out.println("Minutu batean egindako saiakerak: " + total);
+	    System.out.println("======================================");
 	}
 	
 }
