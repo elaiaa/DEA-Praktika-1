@@ -112,7 +112,7 @@ public class Graph {
 		}
 		return aurkitua;
 	}
-		public ArrayList<String> erlazionatutaBidea(String a1, String a2){
+	public ArrayList<String> erlazionatutaBidea(String a1, String a2){
 		ArrayList<String> bideaAlderantziz = new ArrayList<String>();
 		ArrayList<String> bidea = new ArrayList<String>();
 		if (a1.equals(a2)) { //Egile berbera
@@ -128,7 +128,7 @@ public class Graph {
 			} else {
 				bidea.add(a1);
 				while (!bideaAlderantziz.isEmpty()) {
-					bidea.add(bideaAlderantziz.remove(bideaAlderantziz.size()));
+					bidea.add(bideaAlderantziz.remove(bideaAlderantziz.size() - 1));
 				}
 				bidea.add(a2);		//Azken egilea gehitu
 				return bidea;
@@ -140,10 +140,10 @@ public class Graph {
 		if (aztertutakoak[indize]) {
 			return -1;
 		}
+		aztertutakoak[indize] = true;
 		if (this.adjList[indize].contains(egile)) {
 			return indize;
 		} else {
-			aztertutakoak[indize] = true;
 			for (int aztertzeke : adjList[indize]) {
         		int erantzuna = aurkituBidea(egile, aztertzeke, aztertutakoak, bideaAlderantziz);
         		if (erantzuna != -1) {
@@ -156,6 +156,7 @@ public class Graph {
 	}
 
 }
+
 
 
 
