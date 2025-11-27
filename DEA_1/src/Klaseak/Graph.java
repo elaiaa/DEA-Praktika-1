@@ -93,7 +93,7 @@ public class Graph {
 		    
 		    while (!aztertuGabeak.isEmpty() && !aurkitua) {
 		    	
-		    	int unekoa = aztertuGabeak.remove();//hurrengoko aktorea atera aztertzeko
+		    	int unekoa = aztertuGabeak.remove();//hurrengoko egilea atera aztertzeko
 		    	
 		    	if (unekoa == pos2) {
 		            aurkitua = true;}
@@ -113,43 +113,29 @@ public class Graph {
 		return aurkitua;
 	}
 	public ArrayList<String> erlazionatutaBidea(String a1, String a2) {
-
-	    // Caso trivial
 	    if (a1.equals(a2)) {
 	        ArrayList<String> b = new ArrayList<>();
 	        b.add(a1);
 	        return b;
 	    }
-
-	    // Verificar que existen
-	    if (!th.containsKey(a1) || !th.containsKey(a2))
+	    if (!th.containsKey(a1) || !th.containsKey(a2)){
 	        return null;
-
+		}
 	    int start = th.get(a1);
 	    int goal = th.get(a2);
-
 	    boolean[] visited = new boolean[adjList.length];
 	    int[] parent = new int[adjList.length];   // para reconstruir el camino
 	    Arrays.fill(parent, -1);
-
 	    Queue<Integer> queue = new LinkedList<>();
 	    queue.add(start);
 	    visited[start] = true;
-
 	    boolean found = false;
-
-	    // BFS iterativo
 	    while (!queue.isEmpty()) {
-
 	        int current = queue.poll();
-
-	        // Si encontramos el objetivo, paramos
 	        if (current == goal) {
 	            found = true;
 	            break;
 	        }
-
-	        // Explorar vecinos
 	        for (int neighbor : adjList[current]) {
 	            if (!visited[neighbor]) {
 	                visited[neighbor] = true;
@@ -158,24 +144,18 @@ public class Graph {
 	            }
 	        }
 	    }
-
-	    // Si no se encontró camino
 	    if (!found) return null;
-
-	    // Reconstrucción del camino
-	    ArrayList<String> path = new ArrayList<>();
+		ArrayList<String> path = new ArrayList<>();
 	    int curr = goal;
-
 	    while (curr != -1) {
 	        path.add(keys[curr]);
 	        curr = parent[curr];
 	    }
-
-	    // Está al revés → darle la vuelta
 	    Collections.reverse(path);
 	    return path;
 	}
 }
+
 
 
 
