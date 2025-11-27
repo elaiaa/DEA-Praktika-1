@@ -19,6 +19,7 @@ public class GraphTest {
 		Egile e3 = new Egile("Usune","9367");
 		Egile e4 = new Egile("Malen","3662");
 		Egile e5 = new Egile("Eneko","8711");
+		Egile e6 = new Egile("Gaizka","3543");
 		
 		Argitalpen a1 = new Argitalpen("666","La Biblia");
 		Argitalpen a2 = new Argitalpen("543","El Castillo Ambulante");
@@ -31,6 +32,7 @@ public class GraphTest {
 		egileak.put(e3.getkodea(),e3);
 		egileak.put(e4.getkodea(),e4);
 		egileak.put(e5.getkodea(),e5);
+		//egileak.put(e6.getkodea(),e6);///////
 		
 		e1.gehituArgitalpen(a1.getKodea(), a1);
 		e1.gehituArgitalpen(a2.getKodea(), a2);
@@ -47,6 +49,8 @@ public class GraphTest {
 		
 		e5.gehituArgitalpen(a5.getKodea(), a5);
 		
+		//e6.gehituArgitalpen(a5.getKodea(),a5);///////
+		
 		a1.gehituEgile(e1.getkodea(), e1);
 		a1.gehituEgile(e2.getkodea(), e2);
 		
@@ -61,7 +65,7 @@ public class GraphTest {
 		a4.gehituEgile(e3.getkodea(), e3);
 		
 		a5.gehituEgile(e5.getkodea(), e5);
-		
+		//a5.gehituEgile(e6.getkodea(), e6);///////
 		
 		
 	
@@ -80,12 +84,11 @@ public class GraphTest {
 		
 		System.out.println(" ");
 		
-		System.out.println("Erlazionatuta?");
-		String iz1 = "";
-		String iz2 = "";
+		String iz1 = " ";
+		String iz2 = " ";
+		System.out.println("Erlazionatuta daude "+iz1+" eta "+iz2+" ?");
 		boolean erl = grafoa.erlazionatutaBoolean(iz1, iz2);
 		System.out.println(erl);
 	}
 
 }
-
