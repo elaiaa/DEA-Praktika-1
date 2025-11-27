@@ -16,14 +16,22 @@ public class Graph {
             // 1. pausua:  th� bete
             // KODEA INPLEMENTATU
 		th = new HashMap<String,Integer>();
-		Egile[] egileak = new Egile[lista.getListaEgileMapa().size()];/// gero erabiltzeko
-		int kont = 0;
+		ArrayList<Egile> egileak = new ArrayList<Egile>();/// gero erabiltzeko
 		for(Egile e: lista.getListaEgileMapa().values()) {
-			th.put(e.getIzena(), kont);
-			egileak[kont] = e;
-			kont++;
+			if(!th.containsKey(e.getIzena())) {
+				th.put(e.getIzena(),egileak.size() );
+				egileak.add(e);
+			}else {
+				Egile original = egileak.get(th.get(e.getIzena()));
+				UnorderedDoubleLinkedList<Argitalpen> eArg = e.getListaargitalpen();
+				Iterator<Argitalpen> itr = eArg.iterator();
+				while(itr.hasNext()) {
+					Argitalpen a = itr.next();
+					original.gehituArgitalpen(a.getKodea(), a);
+				}
+				
+			}
 		}
-		kont=0;
 	
             // 2. pausua: keys� bete
 		keys = new String[th.size()];
@@ -38,10 +46,10 @@ public class Graph {
 			adjList[i] = new ArrayList<Integer>();
 		}
 		boolean[] daude;
-		for(int i=0; i<egileak.length;i++) {			
-			Egile e = egileak[i];
+		for(int i=0; i<egileak.size();i++) {			
+			Egile e = egileak.get(i);
 			int unekoId = th.get(e.getIzena());
-			daude = new boolean[egileak.length];
+			daude = new boolean[egileak.size()];
 			daude[unekoId] = true;
 			UnorderedDoubleLinkedList<Argitalpen> argitalpenak = e.getListaargitalpen();
 			Iterator<Argitalpen> itr = argitalpenak.iterator();
@@ -148,6 +156,7 @@ public class Graph {
 	}
 
 }
+
 
 
 
