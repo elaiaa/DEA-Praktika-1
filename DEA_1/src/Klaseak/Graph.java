@@ -154,7 +154,63 @@ public class Graph {
 	    Collections.reverse(path);
 	    return path;
 	}
+
+	public HashMap<String, Double> randomWalkPageRank(){
+		Random r = new Random();
+		int n = keys.length;
+		long kop = 0;
+		HashMap<String, Double> emaitza = new HashMap<String, Double>();
+		for (String izena : keys) {     
+		    emaitza.put(izena, 0.0);    
+		}
+		int IBILBIDEAK = 10;
+		for(int i = 0; i<IBILBIDEAK ; i++) {
+			boolean[] aztertuak = new boolean[n];
+			boolean buk = false;
+			//lehenengoa aukeratu 
+			int unekoa = r.nextInt(n);
+			//aztertua markatu
+			aztertuak[unekoa]=true;
+			//kontadorea gehitu
+			String izena = keys[unekoa];               
+	        emaitza.put(izena, emaitza.get(izena) + 1);
+	        kop++;
+	        //iterazioak hasi
+			while(!buk) {
+				int x= r.nextInt(100);
+				if(x < 85) {
+					int irteeraKop = adjList[unekoa].size();
+					if (irteeraKop>0) {
+						int idxnext = r.nextInt(irteeraKop);
+						int next = adjList[unekoa].get(idxnext);
+						if (!aztertuak[next]) {
+							unekoa = next;
+							//aztertua markatu
+							aztertuak[unekoa]=true;
+							//kontadorea gehitu
+							String iz = keys[unekoa];               
+					        emaitza.put(iz, emaitza.get(iz) + 1);
+					        kop++;
+						} else {
+							buk = true;
+						}
+					} else {
+						buk = true;
+					}
+				} else {
+					buk = true;
+				}
+			}
+		}
+		//balioak normalizatu
+		for (String name : keys) {
+            double v = emaitza.get(name);
+            emaitza.put(name, v / (double)kop);
+        }
+		return emaitza;
+	}
 }
+
 
 
 
