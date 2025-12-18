@@ -21,7 +21,7 @@ public class ProgramaNagusia {
 		int aukera = -1;
 
         datuakKargatu();
-        erlaziotest(grafoa);
+        //erlaziotest(grafoa);
 
         do {
             // Menua erakutsi
@@ -39,6 +39,8 @@ public class ProgramaNagusia {
             System.out.println("* 11. Argitalpen zerrenda ordenatua erakutsi");
             System.out.println("* 12. Bi egileren arteko konexioa");
             System.out.println("* 13. Bi egile konektatuta dauden");
+            System.out.println("* 14. Kalkulatu randomWalkPageRank");
+            System.out.println("* 15. Kalkulatu pageRank");
             System.out.println("* 0. Irten");
             System.out.print("Aukera: ");
 
@@ -46,13 +48,13 @@ public class ProgramaNagusia {
             if (sc.hasNextInt()) {
     		    aukera = sc.nextInt();
     		    sc.nextLine();
-    		    if (aukera >= 0 && aukera <= 11) {
+    		    if (aukera >= 0 && aukera <= 15) {
     		        System.out.println(aukera + ". aukera aukeratu duzu!");
     		    } else {
-    		        System.out.println("❌ 0tik 11rako zenbaki bat aukeratu behar duzu!");
+    		        System.out.println("❌ 0tik 15rako zenbaki bat aukeratu behar duzu!");
     		    }
     		} else {
-    		    System.out.println("❌ Sarrera okerra. 1etik 8ra bitarteko zenbaki bat sartu behar duzu.");
+    		    System.out.println("❌ Sarrera okerra. 0tik 15ra bitarteko zenbaki bat sartu behar duzu.");
     		    sc.next(); // limpiar el valor incorrecto
     		    sc.nextLine(); //limpiar scaner
     		}
@@ -121,6 +123,16 @@ public class ProgramaNagusia {
                     break;
                 case 13:
                     egileenBideaBooolean();
+                    System.out.println(); // Linea en blanco para separar
+                    esperarEnter();
+                    break;
+                case 14:
+                    kalkRandomWalkPageRank();
+                    System.out.println(); // Linea en blanco para separar
+                    esperarEnter();
+                    break;
+                case 15:
+                    kalkPageRank();
                     System.out.println(); // Linea en blanco para separar
                     esperarEnter();
                     break;
@@ -276,7 +288,7 @@ public class ProgramaNagusia {
 		System.out.println("Sartu beste egilearen izena: ");
 		String kodea2 = sc.nextLine();
 		boolean bai = grafoa.erlazionatutaBoolean(kodea1, kodea2);
-		if (bai) System.out.println(kodea1 + "eta" + kodea2 + "konekatuta daude.");
+		if (bai) System.out.println(kodea1 + "eta" + kodea2 + " konekatuta daude.");
 		else System.out.println(kodea1 + "eta" + kodea2 + " ez daude konekatuta.");
 	}
 	
@@ -307,6 +319,28 @@ public class ProgramaNagusia {
 	    System.out.println("ErlazionatutaBidea test amaitua!");
 	    System.out.println("Minutu batean egindako saiakerak: " + total);
 	    System.out.println("======================================");
+	}
+	private static void kalkRandomWalkPageRank(){
+		HashMap<String, Double> rWpr = grafoa.randomWalkPageRank();
+		double batura = 0.0;
+		for(String iz : rWpr.keySet()) {
+			System.out.printf("%-35s : %.30f%n", iz, rWpr.get(iz));
+			batura = batura + rWpr.get(iz);
+		}
+		System.out.println();
+		System.out.println("Batura: 1  ||  1 bada, ondo kalkulatu da");
+	
+	}
+	
+	private static void kalkPageRank() {
+		HashMap<String, Double> pr = grafoa.pageRank();
+		double batura = 0.0;
+		for (String iz : pr.keySet()) {
+		    System.out.printf("%-35s : %.15f%n", iz, pr.get(iz));
+		    batura = batura + pr.get(iz);
+		}
+		System.out.println();
+		System.out.println("Batura: 1  ||  1 bada, ondo kalkulatu da");
 	}
 	
 }
