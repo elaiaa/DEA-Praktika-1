@@ -1,10 +1,13 @@
 package Klaseak;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Queue;
+import java.util.Random;
 
 public class Graph {
 	
@@ -112,19 +115,20 @@ public class Graph {
 		}
 		return aurkitua;
 	}
+
 	public ArrayList<String> erlazionatutaBidea(String a1, String a2) {
 	    if (a1.equals(a2)) {
 	        ArrayList<String> b = new ArrayList<>();
 	        b.add(a1);
 	        return b;
 	    }
-	    if (!th.containsKey(a1) || !th.containsKey(a2)){
+	    if (!th.containsKey(a1) || !th.containsKey(a2)) {
 	        return null;
-		}
+	    }
 	    int start = th.get(a1);
 	    int goal = th.get(a2);
 	    boolean[] visited = new boolean[adjList.length];
-	    int[] parent = new int[adjList.length];   // para reconstruir el camino
+	    int[] parent = new int[adjList.length];
 	    Arrays.fill(parent, -1);
 	    Queue<Integer> queue = new LinkedList<>();
 	    queue.add(start);
@@ -145,7 +149,7 @@ public class Graph {
 	        }
 	    }
 	    if (!found) return null;
-		ArrayList<String> path = new ArrayList<>();
+	    ArrayList<String> path = new ArrayList<>();
 	    int curr = goal;
 	    while (curr != -1) {
 	        path.add(keys[curr]);
@@ -154,7 +158,6 @@ public class Graph {
 	    Collections.reverse(path);
 	    return path;
 	}
-
 	public HashMap<String, Double> randomWalkPageRank(){
 		Random r = new Random();
 		int n = keys.length;
@@ -163,7 +166,7 @@ public class Graph {
 		for (String izena : keys) {     
 		    emaitza.put(izena, 0.0);    
 		}
-		int IBILBIDEAK = 10;
+		int IBILBIDEAK = 10000;
 		for(int i = 0; i<IBILBIDEAK ; i++) {
 			boolean[] aztertuak = new boolean[n];
 			boolean buk = false;
@@ -209,17 +212,46 @@ public class Graph {
         }
 		return emaitza;
 	}
+	
+	public HashMap<String, Double> pageRank(){
+		int N = keys.length;
+		double d = 0.85;
+		double[] pr = new double[N];
+	    double[] prIterazio = new double[N];
+	    //PR-ak hasieratu 1/N balorearekin
+	    for (int i = 0; i < N; i++) {
+	        pr[i] = 1.0 / N;
+	    }
+	    //Iterazioak
+	    boolean ondo = false;
+	    while(!ondo) {
+	    	double errorea = 0.0;
+	    	//Auzokideen batukaria
+	    	for (int i = 0; i<N; i++) {
+	    		double batukari = 0.0;
+		    	for(int auzokide : adjList[i]) {
+		    		if(adjList[auzokide].size()>0) {
+		    			batukari = batukari + pr[auzokide]/adjList[auzokide].size();
+		    		}
+		    	}
+		    	prIterazio[i] = (1-d)/N + d*batukari;
+	    	}
+	    	//Errorea kalkulatu
+	    	for(int i = 0;i<N;i++) {
+	    		errorea = errorea + Math.abs(prIterazio[i]-pr[i]);
+	    		pr[i]=prIterazio[i];
+	    	}
+	    	//Baliozkoa den konprobatu
+	    	if(errorea<0.0001) {
+	    		ondo = true;
+	    	}
+	    }
+	    //HashMap bete
+	    HashMap<String, Double> emaitza = new HashMap<String,Double>();
+	    for(int i=0;i<keys.length;i++) {
+	    	emaitza.put(keys[i], pr[i]);
+	    }
+	    return emaitza;
+	}
+
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
